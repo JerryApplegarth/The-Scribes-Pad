@@ -11,10 +11,7 @@ import androidx.compose.material.Text
 import androidx.compose.material.TopAppBar
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Android
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
@@ -23,6 +20,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.applecompose.thescribespad.R
+import com.applecompose.thescribespad.presentation.components.NoteButton
 import com.applecompose.thescribespad.presentation.components.NoteInputText
 import com.applecompose.thescribespad.ui.theme.newBackgroundColor
 import com.applecompose.thescribespad.ui.theme.topbarColor
@@ -31,7 +29,8 @@ import com.applecompose.thescribespad.ui.theme.topbarColor
 @Composable
 fun NoteScreen() {
 
-	val title by remember { mutableStateOf("") }
+	var title by remember { mutableStateOf("") }
+	var description by remember { mutableStateOf("") }
 
 	Column(
 		modifier = Modifier
@@ -46,9 +45,11 @@ fun NoteScreen() {
 				Text(
 					modifier = Modifier
 						.background(Color.Transparent),
-					text = stringResource(id = R.string.app_name,
+					text = stringResource(
+						id = R.string.app_name,
 
-					))
+						)
+				)
 			},
 			actions = {
 				Icon(
@@ -57,7 +58,7 @@ fun NoteScreen() {
 					contentDescription = "Android Icon",
 					modifier = Modifier
 						.padding(end = 16.dp)
-					)
+				)
 			},
 		)
 		//Add text field
@@ -67,28 +68,42 @@ fun NoteScreen() {
 			horizontalAlignment = Alignment.CenterHorizontally
 		) {
 			NoteInputText(
-				modifier = Modifier
-					.padding(start = 6.dp, top = 8.dp, bottom = 6.dp),
-				text = "hello",
+				modifier = Modifier.padding(
+					top = 9.dp,
+					bottom = 8.dp),
+				text = title,
 				label = "Title",
-				maxLine = 1,
-				onTextChange = {}) {
+				onTextChange = {
+					if (it.all { char ->
+							char.isLetter() || char.isWhitespace()
+						}) title = it
+				} )
 
-			}
 			NoteInputText(
-				modifier = Modifier
-					.padding(start = 6.dp, top = 8.dp, bottom = 6.dp),
-				text = "Hello" ,
-				label = "Description",
+				modifier = Modifier.padding(
+					top = 9.dp,
+					bottom = 8.dp),
+				text = description,
+				label = "Add a note",
 				maxLine = 10,
-				onTextChange = {}) {
+				onTextChange = {
+					if (it.all { char ->
+							char.isLetter() || char.isWhitespace()
+						}) description = it
+				})
 
-			}
+			// Add a Button
+			NoteButton(
+				text = "Save",
+				onClick = { /*TODO*/ },
+
+				)
 
 		}
-
 	}
+
 }
+
 
 @Preview(showSystemUi = true, showBackground = true)
 @Composable

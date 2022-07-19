@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">The Scribes Pad</string>
+    <string name="title">Title</string>
+    <string name="add_your_note">Add Your Note</string>
 </resources>

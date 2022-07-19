@@ -66,3 +66,7 @@ val Colors.fontColor: Color
 val Colors.topbarColor: Color
     @Composable
     get() = if (isLight) DarkPrimary else DarkNewBackground
+
+val Colors.buttonColor: Color
+    @Composable
+    get() = if (isLight) Secondary else DarkSecondary

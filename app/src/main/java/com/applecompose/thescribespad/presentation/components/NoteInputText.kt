@@ -18,11 +18,12 @@ fun NoteInputText(
 	modifier: Modifier = Modifier,
 	text: String,
 	label: String,
-	maxLine: Int,
+	maxLine: Int = 1,
 	onTextChange: (String) -> Unit,
-	onImeAction: () -> Unit
+	onImeAction: () -> Unit = {}
 ) {
 	val keyboardController = LocalSoftwareKeyboardController.current
+
 	TextField(
 		value = text,
 		onValueChange = onTextChange,
@@ -30,7 +31,7 @@ fun NoteInputText(
 			backgroundColor = Color.Transparent
 		),
 		maxLines = maxLine,
-		label = { Text(text = label)},
+		label = { Text(text = label) },
 		keyboardOptions = KeyboardOptions.Default.copy(
 			imeAction = ImeAction.Done
 		),
@@ -40,9 +41,6 @@ fun NoteInputText(
 
 		}),
 		modifier = modifier
-
-
-
 	)
 
 }
