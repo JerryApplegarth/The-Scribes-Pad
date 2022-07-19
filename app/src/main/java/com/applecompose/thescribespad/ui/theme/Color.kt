@@ -20,7 +20,7 @@ val OnPrimary = Color(0xFFffffff)
 val OnSecondary = Color(0xFFffffff)
 val PrimaryVariant = Color(0xFF82e9de)
 val NewBackground = Color(0xFFB3E9E4)
-val CardBackground = Color(0xFF54928C)
+val CardBackground = Color(0xFF96ECE4)
 
 //Dark
 val DarkPrimary = Color(0xFF198982)
