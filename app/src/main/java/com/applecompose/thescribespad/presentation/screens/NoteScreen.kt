@@ -29,7 +29,7 @@ import com.applecompose.thescribespad.presentation.components.NoteRow
 import com.applecompose.thescribespad.ui.theme.newBackgroundColor
 import com.applecompose.thescribespad.ui.theme.topbarColor
 
-@OptIn(ExperimentalComposeUiApi::class)
+
 @Composable
 fun NoteScreen(
 	notes: List<Note>,
@@ -136,6 +136,7 @@ fun NoteScreen(
 		}
 	}
 }
+
 
 
 @Preview(showSystemUi = true, showBackground = true)

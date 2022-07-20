@@ -12,7 +12,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.text.input.ImeAction
 
-@ExperimentalComposeUiApi
+
+@OptIn(ExperimentalComposeUiApi::class)
 @Composable
 fun NoteInputText(
 	modifier: Modifier = Modifier,
