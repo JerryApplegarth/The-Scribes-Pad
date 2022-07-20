@@ -9,11 +9,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.text.input.ImeAction
 
 
-@OptIn(ExperimentalComposeUiApi::class)
+
 @Composable
 fun NoteInputText(
 	modifier: Modifier = Modifier,
@@ -23,7 +24,7 @@ fun NoteInputText(
 	onTextChange: (String) -> Unit,
 	onImeAction: () -> Unit = {}
 ) {
-	val keyboardController = LocalSoftwareKeyboardController.current
+	val focusManager = LocalFocusManager.current
 
 	TextField(
 		value = text,
@@ -38,7 +39,8 @@ fun NoteInputText(
 		),
 		keyboardActions = KeyboardActions(onDone = {
 			onImeAction()
-			keyboardController?.hide()
+			focusManager.clearFocus()
+
 
 		}),
 		modifier = modifier
