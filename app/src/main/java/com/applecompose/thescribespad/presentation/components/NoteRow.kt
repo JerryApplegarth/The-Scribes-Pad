@@ -18,9 +18,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import com.applecompose.thescribespad.domain.model.Note
+import com.applecompose.thescribespad.data.model.Note
+import com.applecompose.thescribespad.domain.utils.formatDate
 import com.applecompose.thescribespad.ui.theme.cardBackground
-import java.time.format.DateTimeFormatter
 
 @Composable
 fun NoteRow(
@@ -52,7 +52,7 @@ fun NoteRow(
 				style = MaterialTheme.typography.body2
 				)
 			Text(
-				text = note.entryDate.format(DateTimeFormatter.ofPattern("EEE, d MMM")),
+				text = formatDate(note.entryDate.time),
 				style = MaterialTheme.typography.caption
 				)
 			Icon(

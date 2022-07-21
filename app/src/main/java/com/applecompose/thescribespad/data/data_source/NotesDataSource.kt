@@ -1,6 +1,6 @@
-package com.applecompose.thescribespad.data
+package com.applecompose.thescribespad.data.data_source
 
-import com.applecompose.thescribespad.domain.model.Note
+import com.applecompose.thescribespad.data.model.Note
 
 class NotesDataSource {
 	fun loadNotes(): List<Note> {

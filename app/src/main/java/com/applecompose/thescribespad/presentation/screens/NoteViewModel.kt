@@ -1,25 +1,56 @@
 package com.applecompose.thescribespad.presentation.screens
 
-import androidx.compose.runtime.mutableStateListOf
+import android.content.ContentValues.TAG
+import android.util.Log
 import androidx.lifecycle.ViewModel
-import com.applecompose.thescribespad.data.NotesDataSource
-import com.applecompose.thescribespad.domain.model.Note
+import androidx.lifecycle.viewModelScope
+import com.applecompose.thescribespad.data.data_source.NotesDataSource
+import com.applecompose.thescribespad.data.model.Note
+import com.applecompose.thescribespad.domain.use_cases.repository.NoteRepository
+import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.distinctUntilChanged
+import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class NoteViewModel: ViewModel() {
-	var noteList = mutableStateListOf<Note>()
+@HiltViewModel
+class NoteViewModel @Inject constructor(
+	private val repository: NoteRepository
+): ViewModel() {
+	//var noteList = mutableStateListOf<Note>()
+	private val _noteList = MutableStateFlow<List<Note>>(emptyList())
+	val noteList = _noteList.asStateFlow()
 	// loads notes when app is started
+
 	init {
-		noteList.addAll(NotesDataSource().loadNotes())
+		//noteList.addAll(NotesDataSource().loadNotes())
+		viewModelScope.launch(Dispatchers.IO) {
+			repository.getAllNotes().distinctUntilChanged()
+				.collect{ listOfNotes ->
+					if (listOfNotes.isNullOrEmpty()) {
+						Log.d("Empty", ": Empty List")
+					}else {
+						_noteList.value = listOfNotes
+					}
+				}
+		}
 	}
 
-	fun addNote(note: Note) {
-		noteList.add(note)
+	fun addNote(note: Note) = viewModelScope.launch {
+		repository.addNote(note)
+	}
 
+	fun updateNote(note: Note) = viewModelScope.launch {
+		repository.updateNote(note)
 	}
-	fun removeNote(note: Note) {
-		noteList.remove(note)
+	fun removeNote(note: Note) = viewModelScope.launch {
+		repository.deleteNote(note)
 	}
-	fun getAllNotes(): List<Note> {
-		return noteList
-	}
+
+
+
+
 }

@@ -13,7 +13,6 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Android
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
-import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
@@ -21,14 +20,13 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.applecompose.thescribespad.R
-import com.applecompose.thescribespad.data.NotesDataSource
-import com.applecompose.thescribespad.domain.model.Note
+import com.applecompose.thescribespad.data.data_source.NotesDataSource
+import com.applecompose.thescribespad.data.model.Note
 import com.applecompose.thescribespad.presentation.components.NoteButton
 import com.applecompose.thescribespad.presentation.components.NoteInputText
 import com.applecompose.thescribespad.presentation.components.NoteRow
 import com.applecompose.thescribespad.ui.theme.newBackgroundColor
 import com.applecompose.thescribespad.ui.theme.topbarColor
-
 
 @Composable
 fun NoteScreen(
@@ -36,20 +34,15 @@ fun NoteScreen(
 	onAddNote: (Note) -> Unit,
 	onRemoveNote: (Note) -> Unit
 ) {
-
 	var title by remember { mutableStateOf("") }
 	var description by remember { mutableStateOf("") }
-
 	val context = LocalContext.current
-
-
 
 	Column(
 		modifier = Modifier
 			.padding(6.dp)
 			.background(MaterialTheme.colors.newBackgroundColor)
 			.height(24.dp)
-
 	) {
 		TopAppBar(
 			backgroundColor = MaterialTheme.colors.topbarColor,
@@ -59,13 +52,11 @@ fun NoteScreen(
 						.background(Color.Transparent),
 					text = stringResource(
 						id = R.string.app_name,
-
-						)
+					)
 				)
 			},
 			actions = {
 				Icon(
-
 					imageVector = Icons.Default.Android,
 					contentDescription = "Android Icon",
 					modifier = Modifier
@@ -91,7 +82,6 @@ fun NoteScreen(
 							char.isLetter() || char.isWhitespace()
 						}) title = it
 				})
-
 			NoteInputText(
 				modifier = Modifier.padding(
 					top = 9.dp,
@@ -105,7 +95,6 @@ fun NoteScreen(
 							char.isLetter() || char.isWhitespace()
 						}) description = it
 				})
-
 			// Add a Button
 			NoteButton(
 				text = "Save",
@@ -116,13 +105,11 @@ fun NoteScreen(
 						onAddNote(Note(title = title, description = description))
 						description = ""
 						title = ""
-						Toast.makeText(context, "Scribe, your Note is Saved", Toast.LENGTH_SHORT).show()
-
+						Toast.makeText(context, "Scribe, your Note is Saved", Toast.LENGTH_SHORT)
+							.show()
 					}
 				},
-
-				)
-
+			)
 		}
 		Divider(modifier = Modifier.padding(10.dp))
 		LazyColumn {
@@ -136,7 +123,6 @@ fun NoteScreen(
 		}
 	}
 }
-
 
 
 @Preview(showSystemUi = true, showBackground = true)
